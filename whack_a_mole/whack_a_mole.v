@@ -1,7 +1,7 @@
 module whack_a_mole(
     input clk, rst,
-    input [15:0] switches,
-    output [15:0] leds,
+    input [15:0] swt,
+    output [15:0] led,
     output [6:0] cathode,
     output [7:0] anode
 );
@@ -23,7 +23,7 @@ module whack_a_mole(
     genvar i;
     generate
         for (i = 0; i < 16; i = i + 1) begin : switch_detectors
-            switch_detector det(.clk(clk), .switch(switches[i]), .out(switch_edges[i]));
+            switch_detector det(.clk(clk), .switch(swt[i]), .out(switch_edges[i]));
 
         end
     endgenerate
@@ -44,7 +44,7 @@ module whack_a_mole(
         end
     end
 
-    assign leds = (led_active) ? (16'b1 << current_led) : 16'b0;
+    assign led = (led_active) ? (16'b1 << current_led) : 16'b0;
 
 
 
