@@ -22,7 +22,7 @@ module faster_clock_divider(
     input in_clk, 
     output reg out_clk);
 	
-	reg[32:0] count;
+	reg[15:0] count;
 
 	initial begin
 		count <= 33'b0;
@@ -39,9 +39,9 @@ module faster_clock_divider(
 		//     (Think: how many input clock cycles do you need to see 
 		//     for it to be half a second)
 
-		if (count == 33'd50_000) begin
+		if (count == 16'd50_000) begin
 			out_clk <= ~out_clk;
-			count <= 33'b0;
+			count <= 16'b0;
 			
 		end
 		

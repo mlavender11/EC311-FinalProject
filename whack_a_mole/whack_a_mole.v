@@ -15,7 +15,7 @@ module whack_a_mole(
     wire [15:0] switch_edges;
 
     faster_clock_divider clk_div(.in_clk(clk), .out_clk(clk_1khz));
-    game_timer timer(.clock(clk), .rst(rst), .led_active(led_active), .new_led_trigger(new_led_trigger));
+    game_timer timer(.clock(clk), .rst(rst), .led_active(led_active), .new_led(new_led_trigger));
     random_0_15 rng(.clk(clk), .rst(rst), .rand_0_15(random_led_pos));
     fsm display(.clock(clk_1khz), .sixteen_bit_number(score), .cathode(cathode), .anode(anode));
 
