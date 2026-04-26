@@ -28,13 +28,18 @@ module counter(
     wire seconds_clock; // 1 Hz
 	wire fsm_clock;     // 1 kHz
     reg [15:0] counter; // this is the number we want to display
-    // instantiate the clock divider to drive the 1 Hz signal
-    // instantiate the faster clock divider to drive the 1 kHz signal
-	// instantiate the FSM using the fsm_clock signal
+
+    clock_divider clk_div(.in_clk(clock), .out_clk(seconds_clock));
+    faster_clock_divider fast_clk_div(.in_clk(clock), .out_clk(fsm_clock));
+	fsm fsm(.clock(fsm_clock), .sixteen_bit_number(counter), .cathode(cathode), .anode(anode));
+    
+    initial begin
+        counter = 16'b0;
+    end
     
     always @(posedge seconds_clock)
 	begin
-		// increment counter
+		counter = counter + 1;
 	end
 	
 endmodule
